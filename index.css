@@ -1,0 +1,400 @@
+/* 
+  GS Powertech - Premium Solar Design System
+  Author: Antigravity AI
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap');
+
+:root {
+    /* Colors - Updated from Official Poster */
+    --primary: #FFD700; /* Solar Gold */
+    --primary-dark: #B8860B; /* Darker Gold */
+    --secondary: #002D72; /* Official Navy Blue */
+    --secondary-light: #003da1; 
+    --accent: #22C55E; /* Vibrant Green */
+    --bg-light: #f8fafc;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --white: #ffffff;
+    
+    /* Glassmorphism */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+    
+    /* Spacing */
+    --section-padding: 10px 5%;
+    --container-max-width: 1200px;
+    
+    /* Transitions */
+    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: initial; /* Lenis handles scrolling */
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--white);
+    color: var(--text-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, .font-heading {
+    font-family: 'Outfit', sans-serif;
+}
+
+/* --- Layout Utilities --- */
+.container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    width: 100%;
+}
+
+.section {
+    padding: var(--section-padding);
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Glassmorphism Components --- */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow);
+}
+
+/* --- Premium Buttons --- */
+.btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: var(--secondary); /* High contrast on gold */
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn-outline:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* --- Animated Navbar --- */
+nav {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1100px;
+    z-index: 1000;
+    padding: 12px 30px;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo span {
+    color: var(--primary);
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+/* --- Hero Section --- */
+.hero {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 120px 5% 20px;
+    overflow: hidden;
+}
+
+.hero-content {
+    max-width: 650px;
+    z-index: 2;
+}
+
+.hero-tag {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--primary);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-size: 2.8rem;
+    line-height: 1;
+    margin-bottom: 10px;
+    color: var(--secondary);
+}
+
+.hero p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}
+
+.hero-visual {
+    position: absolute;
+    right: 3%;
+    width: 45%;
+    height: 75%;
+    z-index: 1;
+    margin-top: 15px;
+}
+
+.hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 40px;
+    box-shadow: 20px 20px 60px rgba(0,0,0,0.1);
+}
+
+/* --- Stats & Highlights --- */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: -5px;
+    position: relative;
+    z-index: 10;
+}
+
+.stat-card {
+    padding: 30px;
+    text-align: center;
+}
+
+.stat-card h3 {
+    font-size: 2.5rem;
+    color: var(--primary);
+}
+
+/* --- Product Cards --- */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+}
+
+.card {
+    padding: 10px;
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.card-content {
+    padding: 15px;
+}
+
+.price-tag {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--secondary);
+}
+
+/* --- Subsidy Banner --- */
+.subsidy-section {
+    background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+    color: white;
+    padding: 30px 5%;
+    border-radius: 15px;
+    margin: 15px 2.5%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.subsidy-section h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.subsidy-amount {
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--primary);
+    display: block;
+    margin: 20px 0;
+}
+
+/* --- Timeline --- */
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 15px auto;
+}
+
+.timeline-item {
+    padding: 30px;
+    border-left: 2px solid var(--primary);
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -11px;
+    top: 35px;
+    width: 20px;
+    height: 20px;
+    background: var(--primary);
+    border-radius: 50%;
+}
+
+/* --- Footer & WhatsApp --- */
+footer {
+    padding: 30px 5%;
+    margin-top: 30px;
+    background: #f1f5f9;
+    border-top: 1px solid #e2e8f0;
+}
+
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #25d366;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 1000;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+}
+
+/* --- Festive Decoration --- */
+.toran {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: url('marigold_toran_decoration_1775926450652.png');
+    background-size: contain;
+    background-repeat: repeat-x;
+    z-index: 1001;
+    pointer-events: none;
+    opacity: 0.9;
+}
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+/* --- Mobile Responsive --- */
+@media (max-width: 992px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        height: auto;
+        padding-top: 150px;
+        padding-bottom: 80px;
+    }
+    .hero h1 { font-size: 3rem; }
+    .hero-visual {
+        position: static;
+        width: 100%;
+        margin-top: 50px;
+    }
+    .hero-content { max-width: 100%; }
+    .stats-container { grid-template-columns: repeat(2, 1fr); margin-top: 50px; }
+}
+
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .stats-container { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2.5rem; }
+}
