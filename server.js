@@ -67,13 +67,17 @@ app.post('/api/scan', (req, res) => {
 });
 
 // Start the server
-app.listen(PORT, () => {
-    console.log(`
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`
 🚀 GS Powertech Backend is running!
 -----------------------------------
 📡 Server: http://localhost:${PORT}
 📁 Static Files: Serving from current directory
 -----------------------------------
 Ready to receive enquiries.
-    `);
-});
+        `);
+    });
+}
+
+module.exports = app;

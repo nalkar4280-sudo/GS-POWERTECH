@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
             scanResultEl.innerText = `Scanned: ${decodedText}`;
             
             // Send scan data to backend
-            fetch('http://localhost:5000/api/scan', {
+            fetch('/api/scan', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ serialNumber: decodedText, timestamp: new Date().toISOString() })
