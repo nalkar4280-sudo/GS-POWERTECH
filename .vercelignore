@@ -1,0 +1,10 @@
+# Vercel Ignore Rules
+# Exclude mobile app code from Vercel deployment
+gs-power-app/
+
+# Exclude local shell scripts and database
+*.bat
+*.sqlite
+feedbacks.json
+supabase_error.txt
+test.txt

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Responses | GS Powertech</title>
+    
+    <!-- Design -->
+    <link rel="stylesheet" href="index.css">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+
+<body class="bg-light">
+    <!-- Navigation -->
+    <nav class="glass" style="position: sticky; top: 0; z-index: 100;">
+        <div class="nav-content container" style="display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="GS Powertech Logo" style="height: 50px;">
+            </a>
+            <div style="display: flex; gap: 15px;">
+                <a href="admin/index.html" class="btn btn-outline" style="display: flex; align-items: center; gap: 8px;">
+                    <i data-lucide="inbox"></i> Consultations
+                </a>
+                <a href="index.html" class="btn btn-outline" style="display: flex; align-items: center; gap: 8px;">
+                    <i data-lucide="arrow-left"></i> Home
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container" style="padding-top: 60px; padding-bottom: 60px; min-height: 80vh;">
+        <div style="text-align: center; margin-bottom: 50px;">
+            <h1 style="font-size: 2.5rem;">Customer <span style="color: var(--primary)">Responses</span></h1>
+            <p style="color: var(--text-muted); margin-top: 10px;">Here is what our solar family is saying about us.</p>
+        </div>
+
+        <div id="loading-spinner" style="text-align: center; padding: 40px; color: var(--primary);">
+            <i data-lucide="loader" style="width: 40px; height: 40px; animation: spin 1s linear infinite;"></i>
+            <p style="margin-top: 15px;">Loading responses...</p>
+        </div>
+
+        <div id="no-responses" style="display: none; text-align: center; padding: 40px; background: white; border-radius: 20px; border: 1px dashed #cbd5e1;">
+            <i data-lucide="message-square" style="width: 50px; height: 50px; color: #cbd5e1; margin-bottom: 15px;"></i>
+            <h3 style="color: var(--text-muted);">No responses yet</h3>
+            <p style="color: #94a3b8; font-size: 0.9rem;">Wait for your customers to submit their feedback!</p>
+        </div>
+
+        <div id="responses-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px;">
+            <!-- Responses will be populated here via JS -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+            <a href="#" class="logo">
+                <img src="assets/logo.png" alt="GS Powertech Logo" style="height: 35px;">
+            </a>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">&copy; 2024 GS Powertech. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <style>
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .response-card {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: transform 0.3s ease;
+        }
+        .response-card:hover {
+            transform: translateY(-5px);
+        }
+        .response-stars svg {
+            width: 18px;
+            height: 18px;
+            color: #e2e8f0;
+        }
+        .response-stars svg.filled {
+            color: #fbbf24;
+            fill: #fbbf24;
+        }
+    </style>
+
+    <script>
+        // Init Icons
+        lucide.createIcons();
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const grid = document.getElementById('responses-grid');
+            const noResponses = document.getElementById('no-responses');
+            const loader = document.getElementById('loading-spinner');
+
+            try {
+                const res = await fetch('/api/feedbacks');
+                const data = await res.json();
+                
+                loader.style.display = 'none';
+
+                if (data.success && data.data && data.data.length > 0) {
+                    data.data.slice().reverse().forEach(fb => {
+                        const date = new Date(fb.timestamp).toLocaleDateString('en-IN', {
+                            year: 'numeric', month: 'short', day: 'numeric'
+                        });
+
+                        let starsHtml = '';
+                        for(let i = 1; i <= 5; i++) {
+                            const isFilled = i <= fb.rating ? 'filled' : '';
+                            starsHtml += `<i data-lucide="star" class="${isFilled}"></i>`;
+                        }
+
+                        const card = document.createElement('div');
+                        card.className = 'glass response-card';
+                        card.innerHTML = `
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                <div class="response-stars" style="display: flex; gap: 5px;">
+                                    ${starsHtml}
+                                </div>
+                                <span style="font-size: 0.8rem; color: #94a3b8; font-weight: 600;">${date}</span>
+                            </div>
+                            <p style="color: var(--text); font-style: italic; font-size: 1.05rem; line-height: 1.6;">"${fb.opinion}"</p>
+                            <div style="margin-top: auto; padding-top: 15px; border-top: 1px solid #e2e8f0; display: flex; align-items: center; gap: 15px;">
+                                <div style="width: 40px; height: 40px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem;">
+                                    ${fb.name.charAt(0).toUpperCase()}
+                                </div>
+                                <div>
+                                    <h4 style="margin: 0; color: var(--heading);">${fb.name}</h4>
+                                    <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);">Verified Customer</p>
+                                </div>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    });
+                    
+                    // Re-init newly added icons
+                    lucide.createIcons();
+                    
+                    // Animate cards
+                    gsap.from(".response-card", {
+                        y: 30,
+                        opacity: 0,
+                        duration: 0.5,
+                        stagger: 0.1,
+                        ease: "power2.out"
+                    });
+                    
+                } else {
+                    noResponses.style.display = 'block';
+                }
+
+            } catch (err) {
+                console.error("Error fetching feedbacks:", err);
+                loader.style.display = 'none';
+                noResponses.innerHTML = '<p style="color:red">Failed to load responses.</p>';
+                noResponses.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -16,7 +16,7 @@ import {
 import { CameraView, useCameraPermissions } from 'expo-camera';
 
 // Configuration
-const BACKEND_URL = 'http://YOUR_LOCAL_IP:5000'; // Update this with your computer's IP address
+const BACKEND_URL = 'http://YOUR_LOCAL_IP:5005'; // Update this with your computer's IP address
 
 export default function App() {
     const [scanned, setScanned] = useState(false);
@@ -181,8 +181,8 @@ export default function App() {
                     <TouchableOpacity 
                         style={[styles.submitBtn, {backgroundColor: '#25D366', marginTop: 15}]} 
                         onPress={() => {
-                            Linking.openURL('whatsapp://send?phone=917620983621').catch(() => {
-                                Linking.openURL('https://wa.me/917620983621');
+                            Linking.openURL('whatsapp://send?phone=919518527436').catch(() => {
+                                Linking.openURL('https://wa.me/919518527436');
                             });
                         }}
                     >
