@@ -23,7 +23,7 @@ try {
 } catch(e) {}
 
 const app = express();
-const PORT = process.env.PORT || 5005;
+const PORT = parseInt(process.env.PORT, 10) || 5005;
 
 // Middleware
 app.use(cors());
@@ -213,6 +213,15 @@ app.post('/api/enquiry', async (req, res) => {
 app.post('/api/admin/login', (req, res) => {
     const { username, password } = req.body;
     
+    console.log('\n--- Admin Login Attempt ---');
+    console.log('Incoming Username:', JSON.stringify(username));
+    console.log('Expected Username:', JSON.stringify(process.env.ADMIN_USERNAME));
+    console.log('Incoming Password:', JSON.stringify(password));
+    console.log('Expected Password:', JSON.stringify(process.env.ADMIN_PASSWORD));
+    console.log('Match Username:', username === process.env.ADMIN_USERNAME);
+    console.log('Match Password:', password === process.env.ADMIN_PASSWORD);
+    console.log('---------------------------\n');
+
     if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
         res.status(200).json({ success: true, token: process.env.ADMIN_SECRET });
     } else {
